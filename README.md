@@ -151,6 +151,15 @@ visitor whose JS fails sees content, never a blank column.
 
 ---
 
+## Android
+
+The app is an installable PWA: on Android, visiting the deployed site offers
+**Install app**, and it then runs standalone with offline access to any kalam
+already read. For a real `.apk` (Trusted Web Activity) — and for the
+`assetlinks.json` step that is easy to get wrong — see **[ANDROID.md](ANDROID.md)**.
+
+---
+
 ## Deploying to Vercel
 
 1. Push to a Git remote and import the project.
