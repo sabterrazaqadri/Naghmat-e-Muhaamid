@@ -1,0 +1,345 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════
+   NAGHMAT E MUHAAMID — "Cinematic Glass + Gold"
+   Dark-first. Light mode is a full first-class fallback.
+   Never pure #000 (OLED smear), never pure #FFF.
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  color-scheme: dark;
+
+  --bg-deep: #050506;
+  --bg-base: #0a0a0c;
+  --bg-elevated: rgba(255, 255, 255, 0.04);
+  --bg-elevated-strong: rgba(255, 255, 255, 0.07);
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --border-glass-strong: rgba(255, 255, 255, 0.14);
+
+  --foreground: #f5f1e8;
+  --foreground-muted: #9c9689;
+
+  --accent-gold: #d4af37;
+  --accent-gold-glow: rgba(212, 175, 55, 0.25);
+  --accent-gold-contrast: #0a0a0c; /* text ON a solid gold fill */
+
+  --destructive: #dc2626;
+  --destructive-fg: #fecaca;
+
+  /* Ambient blob hues — gold + deep green, gold + indigo */
+  --blob-a: rgba(212, 175, 55, 0.5);
+  --blob-b: rgba(16, 84, 62, 0.55);
+  --blob-c: rgba(56, 48, 130, 0.5);
+  --blob-opacity: 0.12;
+
+  --shadow-glass: 0 1px 0 0 rgba(255, 255, 255, 0.05) inset,
+    0 18px 50px -20px rgba(0, 0, 0, 0.8);
+}
+
+/* Light mode — applied when the OS asks for it and the user hasn't
+   explicitly pinned dark. Works with JS disabled. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+
+    --bg-deep: #faf9f6;
+    --bg-base: #f2efe8;
+    --bg-elevated: rgba(255, 255, 255, 0.62);
+    --bg-elevated-strong: rgba(255, 255, 255, 0.85);
+    --border-glass: rgba(28, 25, 23, 0.1);
+    --border-glass-strong: rgba(28, 25, 23, 0.18);
+
+    --foreground: #1c1917;
+    --foreground-muted: #57534e; /* 7.2:1 on #FAF9F6 */
+
+    --accent-gold: #a16207; /* 4.7:1 on #FAF9F6 */
+    --accent-gold-glow: rgba(161, 98, 7, 0.2);
+    --accent-gold-contrast: #fffbeb;
+
+    --destructive: #b91c1c;
+    --destructive-fg: #7f1d1d;
+
+    --blob-a: rgba(202, 138, 4, 0.45);
+    --blob-b: rgba(21, 128, 61, 0.4);
+    --blob-c: rgba(67, 56, 202, 0.35);
+    --blob-opacity: 0.1;
+
+    --shadow-glass: 0 1px 0 0 rgba(255, 255, 255, 0.9) inset,
+      0 18px 40px -24px rgba(28, 25, 23, 0.35);
+  }
+}
+
+/* Explicit user choice always wins over the OS preference. */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg-deep: #faf9f6;
+  --bg-base: #f2efe8;
+  --bg-elevated: rgba(255, 255, 255, 0.62);
+  --bg-elevated-strong: rgba(255, 255, 255, 0.85);
+  --border-glass: rgba(28, 25, 23, 0.1);
+  --border-glass-strong: rgba(28, 25, 23, 0.18);
+
+  --foreground: #1c1917;
+  --foreground-muted: #57534e;
+
+  --accent-gold: #a16207;
+  --accent-gold-glow: rgba(161, 98, 7, 0.2);
+  --accent-gold-contrast: #fffbeb;
+
+  --destructive: #b91c1c;
+  --destructive-fg: #7f1d1d;
+
+  --blob-a: rgba(202, 138, 4, 0.45);
+  --blob-b: rgba(21, 128, 61, 0.4);
+  --blob-c: rgba(67, 56, 202, 0.35);
+  --blob-opacity: 0.1;
+
+  --shadow-glass: 0 1px 0 0 rgba(255, 255, 255, 0.9) inset,
+    0 18px 40px -24px rgba(28, 25, 23, 0.35);
+}
+
+/* `inline` so utilities emit var() references and re-resolve on theme flip. */
+@theme inline {
+  --color-bg-deep: var(--bg-deep);
+  --color-bg-base: var(--bg-base);
+  --color-elevated: var(--bg-elevated);
+  --color-elevated-strong: var(--bg-elevated-strong);
+  --color-hairline: var(--border-glass);
+  --color-hairline-strong: var(--border-glass-strong);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--foreground-muted);
+  --color-gold: var(--accent-gold);
+  --color-gold-glow: var(--accent-gold-glow);
+  --color-gold-contrast: var(--accent-gold-contrast);
+  --color-destructive: var(--destructive);
+  --color-destructive-fg: var(--destructive-fg);
+
+  /* Nastaliq carries the poetry; the sans carries the interface. */
+  --font-nastaliq: var(--font-nastaliq-urdu), "Noto Nastaliq Urdu", serif;
+  --font-urdu: var(--font-sans-arabic), "Noto Sans Arabic", sans-serif;
+  --font-display: var(--font-cormorant), "Cormorant Garamond", serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-glass: 1.25rem;
+
+  /* Expo-out: the long tail is what makes motion read as expensive. */
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Base ─────────────────────────────────────────────────────── */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100svh;
+  background:
+    linear-gradient(to bottom, var(--bg-deep) 0%, var(--bg-base) 100%);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  /* Kills the classic RTL/blob horizontal-scroll bug at every breakpoint. */
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Visible focus rings are a requirement, not a suggestion (§7). */
+:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--accent-gold-glow);
+  color: var(--foreground);
+}
+
+/* Nastaliq cascades: each word steps down from right to left, so a line box
+   is far taller than the font size suggests, and the kerns of ے / ی / ن hang
+   well below the baseline. Tailwind's default leading crops both ends. This
+   floor is enforced globally rather than per-component so a new heading
+   cannot reintroduce the bug. */
+:is([lang="ur"], [dir="rtl"]) :is(h1, h2, h3, h4, h5, h6) {
+  line-height: 2;
+  padding-block: 0.22em;
+}
+
+/* ── Utilities ────────────────────────────────────────────────── */
+
+@utility glass {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-glass);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: var(--shadow-glass);
+}
+
+@utility glass-strong {
+  background: var(--bg-elevated-strong);
+  border: 1px solid var(--border-glass-strong);
+  border-radius: var(--radius-glass);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  box-shadow: var(--shadow-glass);
+}
+
+/* Titles — kalam names, category names, section headings. Nastaliq, because
+   this is the poetry speaking. Leading and padding are non-negotiable here. */
+@utility heading-ur {
+  font-family: var(--font-nastaliq);
+  line-height: 2;
+  padding-block: 0.22em;
+}
+
+/* The hero wordmark. Largest type on the site, so it needs the most room —
+   and it is usually paired with `gold-leaf`, whose bg-clip-text crops hard to
+   the text box, making the padding load-bearing rather than cosmetic. */
+@utility wordmark-ur {
+  font-family: var(--font-nastaliq);
+  /* Single line by definition, so leading only has to clear the ascenders
+     and the kern descenders — not stack safely against a line below. At 2.25
+     the wordmark alone ate 273px of a 1100px viewport and pushed the first
+     real content below the fold. 1.5 + padding keeps the glyphs uncropped
+     (verified in-browser) at a third less height. */
+  line-height: 1.5;
+  padding-block: 0.3em;
+}
+
+/* Lyrics. Read at length and stacked line after line, so the cascade needs
+   more room than a one-line heading: at 2.0 the descenders of one misra
+   collide with the next. */
+@utility poetry-ur {
+  font-family: var(--font-nastaliq);
+  line-height: 2.6;
+}
+
+/* Interface text — buttons, counts, chips, placeholders, helper copy.
+   Deliberately NOT nastaliq: its stepped baseline fights tight UI boxes, and
+   this text is read in glances rather than recited. */
+@utility body-ur {
+  font-family: var(--font-urdu);
+  line-height: 2;
+}
+
+@utility gold-glow {
+  text-shadow: 0 0 24px var(--accent-gold-glow);
+}
+
+/* Horizontal chip rails scroll inside themselves; the page never does. */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Every tap target clears 44×44 (§7). */
+@utility tap {
+  min-inline-size: 2.75rem;
+  min-block-size: 2.75rem;
+}
+
+/* Gold as a struck surface rather than a flat fill: a highlight sweeps across
+   the middle of the glyphs the way light catches leaf. Needs a real
+   line-height and vertical padding because bg-clip-text crops to the text box,
+   and Arabic descenders sit well below the baseline — `heading-ur` supplies
+   both, so always pair the two. */
+@utility gold-leaf {
+  background-image: linear-gradient(
+    100deg,
+    color-mix(in oklab, var(--accent-gold) 72%, var(--foreground)) 0%,
+    var(--accent-gold) 34%,
+    color-mix(in oklab, var(--accent-gold) 55%, white) 50%,
+    var(--accent-gold) 66%,
+    color-mix(in oklab, var(--accent-gold) 72%, var(--foreground)) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Film grain. A static SVG turbulence tile — rasterised once, composited on
+   the GPU, never animated. Breaks up the flat gradient fields that make large
+   dark surfaces look like plastic. */
+@utility grain {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* Hairline that fades out at both ends — a full-width 1px border reads as a
+   table row; this reads as an editorial rule. */
+@utility rule-fade {
+  height: 1px;
+  background: linear-gradient(
+    to left,
+    transparent,
+    var(--border-glass-strong) 18%,
+    var(--border-glass-strong) 82%,
+    transparent
+  );
+}
+
+/* Card lift. Transform + border only, so hover never triggers layout. */
+@utility lift {
+  transition:
+    transform 0.4s var(--ease-out-soft),
+    border-color 0.4s var(--ease-out-soft),
+    box-shadow 0.4s var(--ease-out-soft);
+  &:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in oklab, var(--accent-gold) 38%, transparent);
+    box-shadow:
+      0 1px 0 0 rgba(255, 255, 255, 0.06) inset,
+      0 24px 60px -24px var(--accent-gold-glow);
+  }
+}
+
+/* Scroll-reveal pre-state.
+   Gated on BOTH `data-js="on"` (set by an inline script in the document head)
+   and no-preference motion, so content is never hidden from a visitor whose
+   JS failed to load or who asked for reduced motion — GSAP would be the only
+   thing able to reveal it again. */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-js="on"] [data-reveal],
+  html[data-js="on"] [data-reveal-group] > * {
+    opacity: 0;
+  }
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────
+   One global switch. GSAP reads the same media query in JS, so there
+   is no per-component opt-out to forget. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Ambient blobs are hidden outright, not merely frozen. */
+  .ambient-blobs {
+    display: none !important;
+  }
+}

@@ -1,0 +1,1 @@
+ALTER TABLE "kalam" DROP COLUMN "author";
