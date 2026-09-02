@@ -19,7 +19,7 @@ export default function GlobalError({
   }, [error]);
 
   return (
-    <html lang="ur" dir="rtl">
+    <html lang="en" dir="ltr">
       <body
         style={{
           margin: 0,
@@ -35,14 +35,14 @@ export default function GlobalError({
       >
         <div style={{ maxWidth: "32rem" }}>
           <h1 style={{ fontSize: "1.75rem", lineHeight: 1.9, margin: 0 }}>
-            کچھ غلط ہو گیا
+            Something went wrong
           </h1>
           <p style={{ lineHeight: 2, color: "#9c9689" }}>
-            ایپ لوڈ کرتے ہوئے سنگین مسئلہ پیش آیا۔ صفحہ دوبارہ لوڈ کریں۔
+            A serious problem occurred while loading the app. Please reload the page.
           </p>
           {error.digest ? (
             <p style={{ fontSize: "0.75rem", color: "#9c9689" }}>
-              حوالہ: {error.digest}
+              Reference: {error.digest}
             </p>
           ) : null}
           <button
@@ -60,7 +60,7 @@ export default function GlobalError({
               cursor: "pointer",
             }}
           >
-            دوبارہ کوشش کریں
+            Try again
           </button>
         </div>
       </body>

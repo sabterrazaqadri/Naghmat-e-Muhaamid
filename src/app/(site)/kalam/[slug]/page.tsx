@@ -1,4 +1,4 @@
-import { ArrowRight } from "@phosphor-icons/react/ssr";
+import { ArrowLeft } from "@phosphor-icons/react/ssr";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -24,14 +24,14 @@ function buildDescription(lyrics: string): string {
     .join(" — ");
 
   // The collection's single poet is the credit; there is no per-kalam author.
-  return `${opening} · ${site.poet.nameUr}`.slice(0, 300);
+  return `${opening} · ${site.poet.nameLatin}`.slice(0, 300);
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const kalam = await getKalamBySlug(decodeURIComponent(slug));
 
-  if (!kalam) return { title: "کلام نہیں ملا" };
+  if (!kalam) return { title: "Kalam not found" };
 
   const description = buildDescription(kalam.lyrics);
   const path = `/kalam/${encodeURIComponent(kalam.slug)}`;
@@ -82,23 +82,26 @@ export default async function KalamPage({ params }: Params) {
       {/* Reading measure: ~48rem, per §4. */}
       <div className="mx-auto w-full max-w-3xl px-4 pb-20 pt-8 sm:px-6">
         <Reveal>
-          <nav aria-label="راستہ" className="mb-6">
+          <nav aria-label="Breadcrumb" className="mb-6">
             <Link
               href={`/${kalam.categorySlug}`}
-              className="body-ur inline-flex items-center gap-1.5 text-sm leading-7 text-muted transition-colors hover:text-foreground"
+              className="inline-flex items-center gap-1.5 text-sm leading-7 text-muted transition-colors hover:text-foreground"
             >
-              <ArrowRight size={16} aria-hidden="true" />
-              {kalam.categoryName}
+              <ArrowLeft size={16} aria-hidden="true" />
+              <span lang="ur" dir="rtl" className="heading-ur">
+                {kalam.categoryName}
+              </span>
             </Link>
           </nav>
 
           <header className="mb-8">
-            <h1 className="heading-ur text-3xl text-foreground sm:text-4xl">
+            <h1
+              lang="ur"
+              dir="rtl"
+              className="heading-ur text-3xl text-foreground sm:text-4xl"
+            >
               {kalam.title}
             </h1>
-            <p className="body-ur mt-2 text-sm leading-7 text-muted">
-              {kalam.categoryName}
-            </p>
           </header>
         </Reveal>
 
@@ -116,10 +119,13 @@ export default async function KalamPage({ params }: Params) {
         <Reveal className="mt-12">
           <Link
             href={`/${kalam.categorySlug}`}
-            className="body-ur tap inline-flex items-center gap-2 rounded-xl border border-hairline px-4 text-sm text-foreground transition-colors hover:border-hairline-strong"
+            className="tap inline-flex items-center gap-2 rounded-full border border-hairline px-5 text-sm text-foreground transition-colors hover:border-hairline-strong"
           >
-            <ArrowRight size={16} aria-hidden="true" />
-            {kalam.categoryName} کے مزید کلام
+            <ArrowLeft size={16} aria-hidden="true" />
+            More in
+            <span lang="ur" dir="rtl" className="heading-ur">
+              {kalam.categoryName}
+            </span>
           </Link>
         </Reveal>
       </div>

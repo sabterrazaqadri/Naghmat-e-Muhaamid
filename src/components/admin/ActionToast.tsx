@@ -35,14 +35,14 @@ function Toast({
         )}
       </span>
 
-      <p className="body-ur flex-1 text-sm leading-7 text-foreground">
+      <p className="flex-1 text-sm leading-7 text-foreground">
         {message}
       </p>
 
       <button
         type="button"
         onClick={onDismiss}
-        aria-label="بند کریں"
+        aria-label="Dismiss"
         className="shrink-0 rounded-lg p-1 text-muted transition-colors hover:text-foreground"
       >
         <X size={16} aria-hidden="true" />
@@ -82,9 +82,9 @@ export function ActionToast({ state }: { state: ActionState }) {
 }
 
 const FLASH_MESSAGES: Record<string, string> = {
-  created: "کلام محفوظ ہو گیا۔",
-  "category-deleted": "موضوع اور اس کے تمام کلام حذف کر دیے گئے۔",
-  "kalam-deleted": "کلام حذف کر دیا گیا۔",
+  created: "Kalam saved.",
+  "category-deleted": "Topic and all its kalam were deleted.",
+  "kalam-deleted": "Kalam deleted.",
 };
 
 /**

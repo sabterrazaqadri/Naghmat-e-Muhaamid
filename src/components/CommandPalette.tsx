@@ -144,7 +144,7 @@ function PaletteDialog({ onClose }: { onClose: () => void }) {
       kind: "category" as const,
       href: `/${c.slug}`,
       title: c.name,
-      subtitle: `${c.kalamCount} کلام`,
+      subtitle: `${c.kalamCount} kalam`,
       ranges: [],
     }));
 
@@ -170,7 +170,7 @@ function PaletteDialog({ onClose }: { onClose: () => void }) {
         kind: "category",
         href: `/${c.slug}`,
         title: c.name,
-        subtitle: `${c.kalamCount} کلام`,
+        subtitle: `${c.kalamCount} kalam`,
         // Only highlight when the name itself matched, not the latin slug.
         ranges: match.fieldIndex === 0 ? match.ranges : [],
         score: match.score + 40,
@@ -284,7 +284,7 @@ function PaletteDialog({ onClose }: { onClose: () => void }) {
         ref={dialogRef}
         role="dialog"
         aria-modal="true"
-        aria-label="کلام تلاش کریں"
+        aria-label="Search kalam"
         className="glass-strong relative flex max-h-[70vh] w-full max-w-xl flex-col overflow-hidden"
       >
         <div className="flex items-center gap-3 border-b border-hairline px-4">
@@ -297,6 +297,7 @@ function PaletteDialog({ onClose }: { onClose: () => void }) {
             ref={inputRef}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            // Readers may type either script, so let the browser decide.
             dir="auto"
             type="text"
             role="combobox"
@@ -306,8 +307,8 @@ function PaletteDialog({ onClose }: { onClose: () => void }) {
             aria-activedescendant={
               results.length ? `palette-option-${active}` : undefined
             }
-            placeholder="کلام یا موضوع تلاش کریں…"
-            className="body-ur h-14 w-full bg-transparent text-base text-foreground outline-none placeholder:text-muted"
+            placeholder="Search kalam or topics…"
+            className="h-14 w-full bg-transparent text-base text-foreground outline-none placeholder:text-muted"
           />
           <kbd className="hidden shrink-0 rounded border border-hairline px-1.5 py-0.5 font-sans text-[0.7rem] text-muted sm:block">
             Esc
@@ -317,7 +318,7 @@ function PaletteDialog({ onClose }: { onClose: () => void }) {
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
           {status === "loading" ? (
             <div aria-live="polite" aria-busy="true">
-              <span className="sr-only">تلاش کی فہرست لوڈ ہو رہی ہے</span>
+              <span className="sr-only">Loading search index</span>
               <SkeletonResultRow />
               <SkeletonResultRow />
               <SkeletonResultRow />
@@ -327,17 +328,17 @@ function PaletteDialog({ onClose }: { onClose: () => void }) {
             <p
               role="alert"
               dir="rtl"
-              className="body-ur flex items-center justify-center gap-2 px-4 py-10 text-sm text-muted"
+              className="flex items-center justify-center gap-2 px-4 py-10 text-sm text-muted"
             >
               <WarningCircle size={20} aria-hidden="true" />
-              فہرست لوڈ نہ ہو سکی۔ دوبارہ کوشش کریں۔
+              Could not load the index. Please try again.
             </p>
           ) : results.length === 0 ? (
             <p
               dir="rtl"
-              className="body-ur px-4 py-10 text-center text-sm text-muted"
+              className="px-4 py-10 text-center text-sm text-muted"
             >
-              «{query}» سے ملتا کوئی کلام نہیں ملا۔
+              No kalam matched “{query}”.
             </p>
           ) : (
             <ul id="palette-list" role="listbox" ref={listRef} className="py-2">
@@ -373,13 +374,15 @@ function PaletteDialog({ onClose }: { onClose: () => void }) {
 
                     <span className="min-w-0 flex-1">
                       <span
-                        dir="auto"
-                        className="body-ur block truncate text-[0.98rem] leading-8 text-foreground"
+                        lang="ur"
+                        dir="rtl"
+                        className="heading-ur block truncate text-[0.98rem] text-foreground"
                       >
                         <Highlight text={result.title} ranges={result.ranges} />
                       </span>
                       <span
-                        dir="auto"
+                        lang="ur"
+                        dir="rtl"
                         className="body-ur block truncate text-xs leading-6 text-muted"
                       >
                         {result.subtitle}
@@ -400,10 +403,10 @@ function PaletteDialog({ onClose }: { onClose: () => void }) {
           )}
         </div>
 
-        <p className="hidden items-center justify-end gap-3 border-t border-hairline px-4 py-2 text-[0.7rem] text-muted sm:flex">
-          <span>↑↓ منتخب کریں</span>
-          <span>↵ کھولیں</span>
-          <span>Esc بند کریں</span>
+        <p className="hidden items-center justify-start gap-3 border-t border-hairline px-4 py-2 text-[0.7rem] text-muted sm:flex">
+          <span>↑↓ Navigate</span>
+          <span>↵ Open</span>
+          <span>Esc Close</span>
         </p>
       </div>
     </div>

@@ -29,7 +29,7 @@ function StatCard({
         {icon}
       </span>
       <p className="mt-3 font-display text-4xl text-foreground">{value}</p>
-      <p className="body-ur mt-1 text-sm leading-7 text-muted">{label}</p>
+      <p className="mt-1 text-sm leading-7 text-muted">{label}</p>
     </Link>
   );
 }
@@ -47,8 +47,8 @@ export default async function AdminDashboard() {
     console.error("[admin dashboard]", error);
     configError =
       error instanceof Error && error.message.includes("DATABASE_URL_ADMIN")
-        ? "DATABASE_URL_ADMIN مقرر نہیں۔ .env.local میں Neon کا privileged رابطہ شامل کریں۔"
-        : "ڈیٹا بیس سے رابطہ نہ ہو سکا۔";
+        ? "DATABASE_URL_ADMIN is not set. Add the privileged Neon connection string to .env.local."
+        : "Could not connect to the database.";
   }
 
   if (configError) {
@@ -60,10 +60,10 @@ export default async function AdminDashboard() {
           className="mt-0.5 shrink-0 text-destructive"
         />
         <div>
-          <h1 className="heading-ur text-xl text-foreground">
-            ڈیٹا بیس تیار نہیں
+          <h1 className="font-display text-2xl text-foreground">
+            Database not ready
           </h1>
-          <p className="body-ur mt-1 text-sm leading-8 text-muted">
+          <p className="mt-1 text-sm leading-7 text-muted">
             {configError}
           </p>
         </div>
@@ -75,36 +75,36 @@ export default async function AdminDashboard() {
     <div>
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="heading-ur text-2xl text-foreground">خلاصہ</h1>
-          <p className="body-ur text-sm leading-7 text-muted">
-            مجموعے کی موجودہ صورتِ حال
+          <h1 className="font-display text-3xl text-foreground">Overview</h1>
+          <p className="text-sm leading-7 text-muted">
+            The collection at a glance
           </p>
         </div>
 
         <Link
           href="/admin/kalam/new"
-          className="body-ur tap inline-flex items-center gap-2 rounded-xl bg-gold px-4 text-sm font-medium text-gold-contrast transition-opacity hover:opacity-90"
+          className="tap inline-flex items-center gap-2 rounded-full bg-gold px-5 text-sm font-medium text-gold-contrast transition-opacity hover:opacity-90"
         >
           <Plus size={16} aria-hidden="true" />
-          نیا کلام
+          New kalam
         </Link>
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
         <StatCard
-          label="موضوعات"
+          label="Topics"
           value={counts!.categories}
           href="/admin/categories"
           icon={<FolderSimple size={24} />}
         />
         <StatCard
-          label="کل کلام"
+          label="Total kalam"
           value={counts!.kalam}
           href="/admin/kalam"
           icon={<BookOpenText size={24} />}
         />
         <StatCard
-          label="نمایاں کلام"
+          label="Featured"
           value={counts!.featured}
           href="/admin/kalam"
           icon={<Sparkle size={24} />}
@@ -112,15 +112,15 @@ export default async function AdminDashboard() {
       </div>
 
       <section className="mt-10">
-        <h2 className="heading-ur text-lg text-foreground">تازہ ترین کلام</h2>
+        <h2 className="font-display text-xl text-foreground">Recently added</h2>
 
         {recent.length === 0 ? (
-          <p className="body-ur mt-3 text-sm leading-8 text-muted">
-            ابھی کوئی کلام شامل نہیں کیا گیا۔{" "}
+          <p className="mt-3 text-sm leading-7 text-muted">
+            No kalam added yet.{" "}
             <Link href="/admin/kalam/new" className="text-gold underline">
-              پہلا کلام شامل کریں
+              Add the first one
             </Link>
-            ۔
+            .
           </p>
         ) : (
           <ul className="mt-3 divide-y divide-[var(--border-glass)] overflow-hidden rounded-xl border border-hairline">
@@ -130,18 +130,26 @@ export default async function AdminDashboard() {
                   href={`/admin/kalam/${item.id}/edit`}
                   className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-elevated"
                 >
-                  <span className="body-ur min-w-0 flex-1 truncate text-sm text-foreground">
+                  <span
+                    lang="ur"
+                    dir="rtl"
+                    className="body-ur min-w-0 flex-1 truncate text-sm text-foreground"
+                  >
                     {item.title}
                   </span>
                   {item.isFeatured ? (
                     <Sparkle
                       size={14}
                       weight="fill"
-                      aria-label="نمایاں"
+                      aria-label="Featured"
                       className="shrink-0 text-gold"
                     />
                   ) : null}
-                  <span className="body-ur shrink-0 rounded-full border border-hairline px-2 py-0.5 text-xs text-muted">
+                  <span
+                    lang="ur"
+                    dir="rtl"
+                    className="body-ur shrink-0 rounded-full border border-hairline px-2 py-0.5 text-xs text-muted"
+                  >
                     {item.categoryName}
                   </span>
                 </Link>

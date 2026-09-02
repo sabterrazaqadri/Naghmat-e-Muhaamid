@@ -10,9 +10,9 @@ import { site } from "@/lib/site";
  */
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${site.nameUr} — ${site.nameLatin}`,
-    short_name: site.nameUr,
-    description: site.descriptionUr,
+    name: site.nameLatin,
+    short_name: site.nameLatin,
+    description: site.description,
 
     start_url: "/",
     // Anything under the origin stays inside the installed app; a link out
@@ -28,8 +28,9 @@ export default function manifest(): MetadataRoute.Manifest {
     background_color: "#050506",
     theme_color: "#050506",
 
-    lang: "ur",
-    dir: "rtl",
+    // The interface is English; kalam content is Urdu.
+    lang: "en",
+    dir: "ltr",
     categories: ["books", "education", "lifestyle"],
 
     icons: [
@@ -64,7 +65,7 @@ export default function manifest(): MetadataRoute.Manifest {
     // Long-press the installed icon to jump straight to a section.
     shortcuts: [
       {
-        name: "نشان زد کلام",
+        name: "Saved kalam",
         url: "/bookmarks",
         icons: [{ src: "/icons/icon-192.png", sizes: "192x192" }],
       },

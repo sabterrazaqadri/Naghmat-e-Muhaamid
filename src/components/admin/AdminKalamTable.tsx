@@ -43,7 +43,7 @@ export function AdminKalamTable({ items }: { items: Item[] }) {
       <div className="glass flex items-center gap-3 px-4">
         <MagnifyingGlass size={18} aria-hidden="true" className="shrink-0 text-muted" />
         <label htmlFor={inputId} className="sr-only">
-          کلام تلاش کریں
+          Search kalam
         </label>
         <input
           id={inputId}
@@ -51,18 +51,20 @@ export function AdminKalamTable({ items }: { items: Item[] }) {
           dir="auto"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="عنوان یا موضوع سے تلاش کریں…"
-          className="body-ur h-11 w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted"
+          placeholder="Search by title or topic…"
+          className="h-11 w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted"
         />
       </div>
 
-      <p aria-live="polite" className="body-ur mt-3 text-sm leading-7 text-muted">
-        {query ? `${filtered.length} نتائج` : `${items.length} کلام`}
+      <p aria-live="polite" className="mt-3 text-sm leading-7 text-muted">
+        {query
+          ? `${filtered.length} ${filtered.length === 1 ? "result" : "results"}`
+          : `${items.length} kalam`}
       </p>
 
       {filtered.length === 0 ? (
-        <p className="body-ur mt-4 rounded-xl border border-hairline px-4 py-8 text-center text-sm text-muted">
-          کوئی کلام نہیں ملا۔
+        <p className="mt-4 rounded-xl border border-hairline px-4 py-8 text-center text-sm text-muted">
+          No kalam found.
         </p>
       ) : (
         <ul className="mt-2 space-y-3">
@@ -75,11 +77,15 @@ export function AdminKalamTable({ items }: { items: Item[] }) {
                 {/* Sans, not nastaliq: this is a dense dashboard list where
                     truncation is genuinely useful, and truncating nastaliq
                     crops its descenders. §6 puts correctness over register here. */}
-                <p className="body-ur truncate text-base text-foreground">
+                <p lang="ur" dir="rtl" className="body-ur truncate text-base text-foreground">
                   {item.title}
                 </p>
-                <p className="body-ur mt-0.5 flex flex-wrap items-center gap-x-2 text-xs leading-6 text-muted">
-                  <span className="rounded-full border border-hairline px-2 py-0.5">
+                <p className="mt-0.5 text-xs leading-6 text-muted">
+                  <span
+                    lang="ur"
+                    dir="rtl"
+                    className="inline-block rounded-full border border-hairline px-2 py-0.5"
+                  >
                     {item.categoryName}
                   </span>
                 </p>
@@ -94,10 +100,10 @@ export function AdminKalamTable({ items }: { items: Item[] }) {
                     aria-pressed={item.isFeatured}
                     aria-label={
                       item.isFeatured
-                        ? `«${item.title}» کو نمایاں فہرست سے نکالیں`
-                        : `«${item.title}» کو نمایاں کریں`
+                        ? `Unfeature "${item.title}"`
+                        : `Feature "${item.title}"`
                     }
-                    title={item.isFeatured ? "نمایاں ہے" : "نمایاں کریں"}
+                    title={item.isFeatured ? "Featured" : "Feature this kalam"}
                     className={`tap grid place-items-center rounded-xl border border-hairline transition-colors ${
                       item.isFeatured
                         ? "text-gold"
@@ -114,17 +120,17 @@ export function AdminKalamTable({ items }: { items: Item[] }) {
 
                 <Link
                   href={`/admin/kalam/${item.id}/edit`}
-                  className="body-ur tap inline-flex items-center gap-2 rounded-xl border border-hairline px-3 text-sm text-foreground transition-colors hover:border-hairline-strong"
+                  className="tap inline-flex items-center gap-2 rounded-xl border border-hairline px-3 text-sm text-foreground transition-colors hover:border-hairline-strong"
                 >
                   <PencilSimple size={16} aria-hidden="true" />
-                  ترمیم
+                  Edit
                 </Link>
 
                 <DeleteButton
                   action={deleteKalamAction}
                   id={item.id}
                   compact
-                  confirmMessage={`«${item.title}» ہمیشہ کے لیے حذف کر دیا جائے؟`}
+                  confirmMessage={`Permanently delete "${item.title}"?`}
                 />
               </div>
             </li>

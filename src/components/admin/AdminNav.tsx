@@ -5,12 +5,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { logoutAction } from "@/app/admin/actions";
-import { site } from "@/lib/site";
 
 const LINKS = [
-  { href: "/admin", label: "خلاصہ", Icon: House },
-  { href: "/admin/categories", label: "موضوعات", Icon: FolderSimple },
-  { href: "/admin/kalam", label: "کلام", Icon: BookOpenText },
+  { href: "/admin", label: "Overview", Icon: House },
+  { href: "/admin/categories", label: "Topics", Icon: FolderSimple },
+  { href: "/admin/kalam", label: "Kalam", Icon: BookOpenText },
 ] as const;
 
 export function AdminNav() {
@@ -26,10 +25,10 @@ export function AdminNav() {
           >
             ن
           </span>
-          <span className="heading-ur text-base text-foreground">انتظامیہ</span>
+          <span className="font-display text-lg text-foreground">Admin</span>
         </Link>
 
-        <nav aria-label="انتظامیہ" className="flex items-center gap-1">
+        <nav aria-label="Admin sections" className="flex items-center gap-1">
           {LINKS.map(({ href, label, Icon }) => {
             // /admin must not light up for /admin/kalam, so the root link
             // matches exactly while the others match their subtree.
@@ -41,7 +40,7 @@ export function AdminNav() {
                 key={href}
                 href={href}
                 aria-current={isActive ? "page" : undefined}
-                className={`body-ur tap inline-flex items-center gap-2 rounded-xl px-3 text-sm transition-colors ${
+                className={`tap inline-flex items-center gap-2 rounded-xl px-3 text-sm transition-colors ${
                   isActive
                     ? "bg-[color-mix(in_oklab,var(--accent-gold)_16%,transparent)] text-gold"
                     : "text-muted hover:text-foreground"
@@ -58,18 +57,18 @@ export function AdminNav() {
           <Link
             href="/"
             target="_blank"
-            className="body-ur tap hidden items-center text-sm text-muted transition-colors hover:text-foreground sm:inline-flex"
+            className="tap hidden items-center text-sm text-muted transition-colors hover:text-foreground sm:inline-flex"
           >
-            {site.nameUr} ↗
+            View site ↗
           </Link>
 
           <form action={logoutAction}>
             <button
               type="submit"
-              className="body-ur tap inline-flex items-center gap-2 rounded-xl border border-hairline px-3 text-sm text-muted transition-colors hover:border-hairline-strong hover:text-foreground"
+              className="tap inline-flex items-center gap-2 rounded-xl border border-hairline px-3 text-sm text-muted transition-colors hover:border-hairline-strong hover:text-foreground"
             >
               <SignOut size={18} aria-hidden="true" />
-              <span className="hidden sm:inline">باہر نکلیں</span>
+              <span className="hidden sm:inline">Sign out</span>
             </button>
           </form>
         </div>

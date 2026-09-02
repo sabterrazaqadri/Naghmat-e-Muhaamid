@@ -1,4 +1,4 @@
-import { ArrowLeft, FolderOpen, Sparkle } from "@phosphor-icons/react/ssr";
+import { ArrowRight, FolderOpen, Sparkle } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 
 import { CategoryCard } from "@/components/CategoryCard";
@@ -43,13 +43,21 @@ export default async function HomePage() {
           {/* The one and only nastaliq wordmark. `wordmark-ur` supplies the
               line-height and vertical padding that keep `gold-leaf`'s
               bg-clip-text from cropping the descenders. */}
-          <h1 className="wordmark-ur gold-leaf mt-4 text-[clamp(2.75rem,10vw,6rem)]">
+          <h1
+            lang="ur"
+            dir="rtl"
+            className="wordmark-ur gold-leaf mt-4 text-[clamp(2.75rem,10vw,6rem)]"
+          >
             {site.nameUr}
           </h1>
 
           <OrnamentDivider className="mx-auto mt-2 w-full max-w-md" />
 
-          <p className="heading-ur mt-3 text-lg text-muted sm:text-xl">
+          <p
+            lang="ur"
+            dir="rtl"
+            className="heading-ur mt-3 text-lg text-muted sm:text-xl"
+          >
             {site.poet.nameUr}
           </p>
         </Reveal>
@@ -65,8 +73,8 @@ export default async function HomePage() {
                 <dd className="font-display text-4xl text-gold sm:text-5xl">
                   {categories.length}
                 </dd>
-                <dt className="body-ur mt-1 text-xs tracking-wide text-muted">
-                  موضوعات
+                <dt className="mt-1 text-xs uppercase tracking-[0.18em] text-muted">
+                  Topics
                 </dt>
               </div>
 
@@ -76,8 +84,8 @@ export default async function HomePage() {
                 <dd className="font-display text-4xl text-gold sm:text-5xl">
                   {totalKalam}
                 </dd>
-                <dt className="body-ur mt-1 text-xs tracking-wide text-muted">
-                  کلام
+                <dt className="mt-1 text-xs uppercase tracking-[0.18em] text-muted">
+                  Kalam
                 </dt>
               </div>
             </dl>
@@ -110,19 +118,27 @@ export default async function HomePage() {
               <div className="relative px-6 py-12 sm:px-14 sm:py-16">
                 <p
                   id="kalam-of-the-day"
-                  className="body-ur flex items-center gap-2 text-xs tracking-[0.2em] text-gold"
+                  className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-gold"
                 >
                   <Sparkle size={15} weight="fill" aria-hidden="true" />
-                  کلامِ روز
+                  Kalam of the day
                 </p>
 
-                <h2 className="heading-ur mt-3 text-[clamp(1.9rem,5vw,3.25rem)] text-foreground">
+                <h2
+                  lang="ur"
+                  dir="rtl"
+                  className="heading-ur mt-3 text-[clamp(1.9rem,5vw,3.25rem)] text-foreground"
+                >
                   {kalamOfTheDay.title}
                 </h2>
 
                 {/* Logical border-inline-end: the rule sits on the reading
                     edge in RTL without a direction-specific override. */}
-                <div className="mt-8 max-w-2xl border-e-2 border-gold/40 pe-5">
+                <div
+                  lang="ur"
+                  dir="rtl"
+                  className="mt-8 max-w-2xl border-s-2 border-gold/40 ps-5"
+                >
                   {openingLines.map((line, i) => (
                     <p
                       key={i}
@@ -135,10 +151,10 @@ export default async function HomePage() {
 
                 <Link
                   href={`/kalam/${encodeURIComponent(kalamOfTheDay.slug)}`}
-                  className="body-ur tap mt-10 inline-flex items-center gap-2.5 rounded-full bg-gold px-6 text-sm font-medium text-gold-contrast transition-all duration-300 ease-[var(--ease-out-soft)] hover:gap-4"
+                  className="tap mt-10 inline-flex items-center gap-2.5 rounded-full bg-gold px-6 text-sm font-medium text-gold-contrast transition-all duration-300 ease-[var(--ease-out-soft)] hover:gap-4"
                 >
-                  مکمل کلام پڑھیں
-                  <ArrowLeft size={17} aria-hidden="true" />
+                  Read the full kalam
+                  <ArrowRight size={17} aria-hidden="true" />
                 </Link>
               </div>
             </div>
@@ -151,9 +167,9 @@ export default async function HomePage() {
         <Reveal>
           <h2
             id="topics"
-            className="heading-ur text-[clamp(1.6rem,4vw,2.4rem)] text-foreground"
+            className="font-display text-[clamp(1.9rem,4vw,2.75rem)] text-foreground"
           >
-            موضوعات
+            Topics
           </h2>
           <SectionRule className="mt-3" />
         </Reveal>
@@ -162,14 +178,14 @@ export default async function HomePage() {
           <div className="mt-8">
             <EmptyState
               icon={<FolderOpen size={26} aria-hidden="true" />}
-              title="ابھی کوئی موضوع موجود نہیں"
-              body="انتظامیہ کے صفحے سے پہلا موضوع بنائیں — نیا موضوع بناتے ہی اس کا صفحہ خود بخود بن جائے گا۔"
+              title="No topics yet"
+              body="Create the first topic from the admin panel — its public page appears automatically, with no code change."
               action={
                 <Link
                   href="/admin"
-                  className="body-ur tap inline-flex items-center rounded-full border border-hairline px-5 text-sm text-foreground transition-colors hover:border-hairline-strong"
+                  className="tap inline-flex items-center rounded-full border border-hairline px-5 text-sm text-foreground transition-colors hover:border-hairline-strong"
                 >
-                  انتظامیہ کھولیں
+                  Open admin
                 </Link>
               }
             />

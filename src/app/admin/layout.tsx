@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: { default: "انتظامیہ", template: "%s — انتظامیہ" },
+  title: { default: "Admin", template: "%s — Admin" },
   // Belt and braces alongside the Disallow rule in robots.ts.
   robots: { index: false, follow: false, nocache: true },
 };

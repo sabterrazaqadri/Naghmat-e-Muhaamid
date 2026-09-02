@@ -22,7 +22,7 @@ export async function SiteHeader() {
           <Link
             href="/"
             className="me-auto flex min-w-0 items-center gap-2.5"
-            aria-label={`${site.nameLatin} — سرورق`}
+            aria-label={`${site.nameLatin} — home`}
           >
             <span
               aria-hidden="true"
@@ -33,7 +33,12 @@ export async function SiteHeader() {
             {/* No `truncate` — overflow-hidden would crop the nastaliq
                 descenders. The name is short, and the parent's min-w-0 already
                 stops it from pushing the header actions off screen. */}
-            <span className="heading-ur text-lg text-foreground sm:text-xl">
+            {/* The wordmark stays Urdu — it is the brand, not interface copy. */}
+            <span
+              lang="ur"
+              dir="rtl"
+              className="heading-ur text-lg text-foreground sm:text-xl"
+            >
               {site.nameUr}
             </span>
           </Link>
@@ -42,8 +47,8 @@ export async function SiteHeader() {
 
           <Link
             href="/bookmarks"
-            aria-label="نشان زد کلام"
-            title="نشان زد کلام"
+            aria-label="Saved kalam"
+            title="Saved kalam"
             className="tap grid place-items-center rounded-xl border border-hairline text-muted transition-colors hover:border-hairline-strong hover:text-foreground"
           >
             <Star size={20} aria-hidden="true" />

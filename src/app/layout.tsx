@@ -18,27 +18,27 @@ export const metadata: Metadata = {
     default: `${site.nameUr} — ${site.nameLatin}`,
     template: `%s — ${site.nameLatin}`,
   },
-  description: site.descriptionUr,
+  description: site.description,
   applicationName: site.nameLatin,
   authors: [{ name: site.poet.nameLatin }],
   openGraph: {
     type: "website",
-    locale: "ur_PK",
+    locale: "en",
     siteName: site.nameLatin,
     title: `${site.nameUr} — ${site.nameLatin}`,
-    description: site.descriptionUr,
+    description: site.description,
     url: "/",
   },
   twitter: {
     card: "summary_large_image",
     title: `${site.nameUr} — ${site.nameLatin}`,
-    description: site.descriptionUr,
+    description: site.description,
   },
   alternates: { canonical: "/" },
   // iOS ignores the manifest for home-screen icons and reads this instead.
   appleWebApp: {
     capable: true,
-    title: site.nameUr,
+    title: site.nameLatin,
     statusBarStyle: "black-translucent",
   },
   icons: {
@@ -84,9 +84,14 @@ export default function RootLayout({
        every font token computed to the empty string, every `font-family:
        var(--font-…)` became invalid, and the whole site silently fell back to
        the UA sans stack. Moving them up one element is the entire fix. */
+    /* The interface is English, so the document is LTR. Urdu content —
+       kalam titles, lyrics, category names, the wordmark — is marked
+       lang="ur" dir="rtl" on its own elements, which is what lets a single
+       page carry both scripts correctly: logical properties resolve per
+       element, and screen readers switch voice on the Urdu islands. */
     <html
-      lang="ur"
-      dir="rtl"
+      lang="en"
+      dir="ltr"
       className={fontVariables}
       suppressHydrationWarning
     >

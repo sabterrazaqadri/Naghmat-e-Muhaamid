@@ -38,8 +38,8 @@ function failure(error: unknown): ActionState {
   console.error("[admin action]", error);
   const message =
     error instanceof Error && error.message.includes("DATABASE_URL_ADMIN")
-      ? "ڈیٹا بیس کا رابطہ طے نہیں — DATABASE_URL_ADMIN مقرر کریں۔"
-      : "محفوظ کرتے ہوئے مسئلہ پیش آیا۔ دوبارہ کوشش کریں۔";
+      ? "Database connection is not configured — set DATABASE_URL_ADMIN."
+      : "Something went wrong while saving. Please try again.";
   return { status: "error", message };
 }
 
@@ -60,8 +60,8 @@ export async function loginAction(
   if (!password) {
     return {
       status: "error",
-      message: "پاس ورڈ درکار ہے۔",
-      fieldErrors: { password: "پاس ورڈ درکار ہے۔" },
+      message: "Password is required.",
+      fieldErrors: { password: "Password is required." },
     };
   }
 
@@ -72,7 +72,7 @@ export async function loginAction(
   if (!registerLoginAttempt(key)) {
     return {
       status: "error",
-      message: "بہت زیادہ کوششیں۔ کچھ دیر بعد دوبارہ آزمائیں۔",
+      message: "Too many attempts. Please try again later.",
     };
   }
 
@@ -81,7 +81,7 @@ export async function loginAction(
   // cause is logged server-side by checkAdminPassword.
   const genericFailure: ActionState = {
     status: "error",
-    message: "داخلہ ممکن نہیں۔ تفصیلات دوبارہ جانچیں۔",
+    message: "Could not sign in. Check the details and try again.",
   };
 
   if (!checkAdminPassword(password)) return genericFailure;
@@ -116,8 +116,8 @@ export async function createCategoryAction(
   if (!name) {
     return {
       status: "error",
-      message: "موضوع کا نام درکار ہے۔",
-      fieldErrors: { name: "نام درکار ہے۔" },
+      message: "Topic name is required.",
+      fieldErrors: { name: "Name is required." },
     };
   }
 
@@ -142,7 +142,7 @@ export async function createCategoryAction(
     revalidatePublic();
     return {
       status: "success",
-      message: `«${name}» بن گیا — اس کا صفحہ /${slug} پر خود بخود دستیاب ہے۔`,
+      message: `“${name}” created — its page is live at /${slug}.`,
     };
   } catch (error) {
     return failure(error);
@@ -160,12 +160,12 @@ export async function updateCategoryAction(
   const rawSlug = field(formData, "slug");
   const sortOrder = Number.parseInt(field(formData, "sortOrder"), 10);
 
-  if (!id) return { status: "error", message: "موضوع کی شناخت نہیں ملی۔" };
+  if (!id) return { status: "error", message: "Topic id missing." };
   if (!name) {
     return {
       status: "error",
-      message: "موضوع کا نام درکار ہے۔",
-      fieldErrors: { name: "نام درکار ہے۔" },
+      message: "Topic name is required.",
+      fieldErrors: { name: "Name is required." },
     };
   }
 
@@ -192,7 +192,7 @@ export async function updateCategoryAction(
       .where(eq(categories.id, id));
 
     revalidatePublic();
-    return { status: "success", message: `«${name}» محفوظ ہو گیا۔` };
+    return { status: "success", message: `“${name}” saved.` };
   } catch (error) {
     return failure(error);
   }
@@ -230,16 +230,16 @@ function readKalamInput(formData: FormData):
   const categoryId = field(formData, "categoryId");
 
   const fieldErrors: Record<string, string> = {};
-  if (!title) fieldErrors.title = "عنوان درکار ہے۔";
-  if (!lyrics) fieldErrors.lyrics = "کلام کا متن درکار ہے۔";
-  if (!categoryId) fieldErrors.categoryId = "موضوع منتخب کریں۔";
+  if (!title) fieldErrors.title = "Title is required.";
+  if (!lyrics) fieldErrors.lyrics = "Kalam text is required.";
+  if (!categoryId) fieldErrors.categoryId = "Choose a topic.";
 
   if (Object.keys(fieldErrors).length > 0) {
     return {
       ok: false,
       state: {
         status: "error",
-        message: "کچھ خانے ادھورے ہیں۔",
+        message: "Some fields are incomplete.",
         fieldErrors,
       },
     };
@@ -305,7 +305,7 @@ export async function updateKalamAction(
   await requireAdmin();
 
   const id = field(formData, "id");
-  if (!id) return { status: "error", message: "کلام کی شناخت نہیں ملی۔" };
+  if (!id) return { status: "error", message: "Kalam id missing." };
 
   const parsed = readKalamInput(formData);
   if (!parsed.ok) return parsed.state;
@@ -333,7 +333,7 @@ export async function updateKalamAction(
     revalidatePublic();
     return {
       status: "success",
-      message: `«${parsed.value.title}» محفوظ ہو گیا۔`,
+      message: `“${parsed.value.title}” saved.`,
     };
   } catch (error) {
     return failure(error);

@@ -122,6 +122,16 @@ row disagree with the collection.
 only harakat, bidi/zero-width controls, and punctuation. A naive
 `strip non-ASCII` would reduce every Urdu title to the same empty slug.
 
+**Bilingual by design: English interface, Urdu content.** The document is
+`lang="en" dir="ltr"`, and every Urdu string — kalam titles, lyrics, category
+names, the wordmark, the poet's name — is wrapped in its own
+`lang="ur" dir="rtl"` island. That per-element marking is what makes a single
+page carry both scripts correctly: logical properties resolve per element,
+screen readers switch voice on the Urdu, and the nastaliq leading rules apply
+where they should. Free-text inputs use `dir="auto"` so an English placeholder
+renders LTR and the field flips to RTL as soon as Urdu is typed — a hard
+`dir="rtl"` throws the placeholder's trailing punctuation to the front.
+
 **Typography: nastaliq carries the poetry, a sans carries the interface.**
 Urdu verse has been set in nastaliq for four centuries; naskh is the Arabic
 tradition, and a naat in naskh reads to an Urdu eye as the wrong register. So

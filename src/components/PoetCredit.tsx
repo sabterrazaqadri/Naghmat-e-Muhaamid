@@ -22,11 +22,17 @@ export function PoetCredit() {
         <span className="rule-fade flex-1" />
       </div>
 
-      <p className="body-ur mt-4 text-[0.7rem] tracking-[0.22em] text-muted">
-        کلام
+      <p className="mt-4 text-[0.7rem] uppercase tracking-[0.22em] text-muted">
+        Kalam
       </p>
-      <p className="heading-ur text-lg text-foreground">{site.poet.nameUr}</p>
-      <p className="body-ur text-xs leading-7 text-muted">
+      <p
+        lang="ur"
+        dir="rtl"
+        className="heading-ur text-lg text-foreground"
+      >
+        {site.poet.nameUr}
+      </p>
+      <p lang="ur" dir="rtl" className="body-ur text-xs leading-7 text-muted">
         {site.poet.titlesUr}
       </p>
     </footer>

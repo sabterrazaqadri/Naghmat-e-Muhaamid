@@ -38,8 +38,8 @@ export function SearchButton({
           aria-hidden="true"
           className="shrink-0 transition-colors duration-300 group-hover:text-gold"
         />
-        <span className="body-ur flex-1 text-sm sm:text-base">
-          کلام یا موضوع تلاش کریں…
+        <span className="flex-1 text-sm sm:text-base">
+          Search kalam or topics…
         </span>
         {shortcut ? (
           <kbd className="hidden shrink-0 rounded-md border border-hairline px-2 py-1 font-sans text-[0.7rem] sm:block">
@@ -54,11 +54,11 @@ export function SearchButton({
     <button
       type="button"
       onClick={open}
-      aria-label="کلام تلاش کریں"
+      aria-label="Search kalam"
       className="tap flex items-center gap-2 rounded-xl border border-hairline px-3 text-muted transition-colors hover:border-hairline-strong hover:text-foreground"
     >
       <MagnifyingGlass size={20} aria-hidden="true" />
-      <span className="body-ur hidden text-sm sm:inline">تلاش</span>
+      <span className="hidden text-sm sm:inline">Search</span>
       {shortcut ? (
         <kbd className="hidden rounded border border-hairline px-1.5 py-0.5 font-sans text-[0.7rem] md:inline">
           {shortcut}

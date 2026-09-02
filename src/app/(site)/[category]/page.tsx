@@ -24,10 +24,10 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { category: slug } = await params;
   const category = await getCategoryBySlug(decodeURIComponent(slug));
 
-  if (!category) return { title: "موضوع نہیں ملا" };
+  if (!category) return { title: "Topic not found" };
 
   const title = category.name;
-  const description = `${category.name} — ${site.descriptionLatin}`;
+  const description = `${category.name} — ${site.description}`;
 
   return {
     title,
@@ -66,15 +66,19 @@ export default async function CategoryPage({ params }: Params) {
           <div className="relative px-6 py-10 sm:px-10">
             <Link
               href="/"
-              className="body-ur text-sm leading-7 text-muted transition-colors hover:text-foreground"
+              className="text-sm leading-7 text-muted transition-colors hover:text-foreground"
             >
-              تمام موضوعات
+              All topics
             </Link>
-            <h1 className="heading-ur mt-1 text-4xl text-foreground sm:text-5xl">
+            <h1
+              lang="ur"
+              dir="rtl"
+              className="heading-ur mt-1 text-4xl text-foreground sm:text-5xl"
+            >
               {category.name}
             </h1>
-            <p className="body-ur mt-1 text-sm leading-7 text-muted">
-              {items.length} کلام
+            <p className="mt-1 text-sm leading-7 text-muted">
+              {items.length} kalam
             </p>
           </div>
         </header>
@@ -84,14 +88,14 @@ export default async function CategoryPage({ params }: Params) {
         {items.length === 0 ? (
           <EmptyState
             icon={<FileText size={26} aria-hidden="true" />}
-            title="اس موضوع میں ابھی کوئی کلام نہیں"
-            body="انتظامیہ کے صفحے سے اس موضوع میں پہلا کلام شامل کریں۔"
+            title="No kalam in this topic yet"
+            body="Add the first kalam to this topic from the admin panel."
             action={
               <Link
                 href="/admin/kalam/new"
-                className="body-ur tap inline-flex items-center rounded-xl border border-hairline px-4 text-sm text-foreground transition-colors hover:border-hairline-strong"
+                className="tap inline-flex items-center rounded-full border border-hairline px-5 text-sm text-foreground transition-colors hover:border-hairline-strong"
               >
-                کلام شامل کریں
+                Add a kalam
               </Link>
             }
           />

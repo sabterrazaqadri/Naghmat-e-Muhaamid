@@ -18,7 +18,7 @@ export function Field({
 }) {
   return (
     <div>
-      <label htmlFor={id} className="body-ur text-sm text-foreground">
+      <label htmlFor={id} className="text-sm text-foreground">
         {label}
         {required ? <span className="text-destructive"> *</span> : null}
       </label>
@@ -28,7 +28,7 @@ export function Field({
       {hint ? <p className="mt-1 text-xs text-muted">{hint}</p> : null}
 
       {error ? (
-        <p id={`${id}-error`} className="body-ur mt-1 text-sm text-destructive">
+        <p id={`${id}-error`} className="mt-1 text-sm text-destructive">
           {error}
         </p>
       ) : null}
@@ -37,7 +37,7 @@ export function Field({
 }
 
 export const inputClass =
-  "body-ur h-11 w-full rounded-xl border border-hairline bg-elevated px-3 text-base text-foreground outline-none transition-colors placeholder:text-muted focus:border-gold";
+  "h-11 w-full rounded-xl border border-hairline bg-elevated px-3 text-base text-foreground outline-none transition-colors placeholder:text-muted focus:border-gold";
 
 export const inputErrorClass =
-  "body-ur h-11 w-full rounded-xl border border-destructive bg-elevated px-3 text-base text-foreground outline-none transition-colors placeholder:text-muted focus:border-gold";
+  "h-11 w-full rounded-xl border border-destructive bg-elevated px-3 text-base text-foreground outline-none transition-colors placeholder:text-muted focus:border-gold";

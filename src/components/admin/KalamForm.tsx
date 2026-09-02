@@ -39,13 +39,14 @@ export function KalamForm({ action, mode, categories, initial }: Props) {
 
         <Field
           id={titleId}
-          label="عنوان"
+          label="Title"
           required
           error={state.fieldErrors?.title}
         >
           <input
             id={titleId}
             name="title"
+            lang="ur"
             dir="rtl"
             defaultValue={initial?.title}
             required
@@ -59,13 +60,14 @@ export function KalamForm({ action, mode, categories, initial }: Props) {
 
         <Field
           id={categoryId}
-          label="موضوع"
+          label="Topic"
           required
           error={state.fieldErrors?.categoryId}
         >
           <select
             id={categoryId}
             name="categoryId"
+            lang="ur"
             dir="rtl"
             defaultValue={initial?.categoryId ?? ""}
             required
@@ -74,8 +76,10 @@ export function KalamForm({ action, mode, categories, initial }: Props) {
               state.fieldErrors?.categoryId ? inputErrorClass : inputClass
             }
           >
+            {/* No trailing ellipsis: the select is RTL for the Urdu topic
+                names, which would throw the "…" to the wrong end. */}
             <option value="" disabled>
-              منتخب کریں…
+              Choose a topic
             </option>
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
@@ -87,8 +91,8 @@ export function KalamForm({ action, mode, categories, initial }: Props) {
 
         <Field
           id={slugId}
-          label="ویب پتا (slug)"
-          hint="خالی چھوڑ دیں تو عنوان سے خود بن جائے گا۔"
+          label="URL slug"
+          hint="Leave blank to generate it from the title."
         >
           <input
             id={slugId}
@@ -112,12 +116,12 @@ export function KalamForm({ action, mode, categories, initial }: Props) {
             className="mt-1 size-4 accent-[var(--accent-gold)]"
           />
           <span>
-            <span className="body-ur block text-sm text-foreground">
-              «کلامِ روز» میں شامل کریں
+            <span className="block text-sm text-foreground">
+              Feature as “Kalam of the day”
             </span>
-            <span className="body-ur block text-xs leading-6 text-muted">
-              نمایاں کلام سرورق پر دکھائے جاتے ہیں۔ ایک سے زیادہ نمایاں ہوں تو
-              روزانہ باری باری بدلتے رہتے ہیں۔
+            <span className="block text-xs leading-6 text-muted">
+              Featured kalam appear on the home page. With more than one
+              featured, they rotate daily.
             </span>
           </span>
         </label>
@@ -132,23 +136,23 @@ export function KalamForm({ action, mode, categories, initial }: Props) {
               )
             }
           >
-            {mode === "create" ? "کلام شامل کریں" : "محفوظ کریں"}
+            {mode === "create" ? "Add kalam" : "Save changes"}
           </SubmitButton>
 
           <Link
             href="/admin/kalam"
-            className="body-ur tap inline-flex items-center rounded-xl border border-hairline px-4 text-sm text-foreground transition-colors hover:border-hairline-strong"
+            className="tap inline-flex items-center rounded-xl border border-hairline px-4 text-sm text-foreground transition-colors hover:border-hairline-strong"
           >
-            واپس
+            Back
           </Link>
 
           {mode === "edit" && initial ? (
             <Link
               href={`/kalam/${encodeURIComponent(initial.slug)}`}
               target="_blank"
-              className="body-ur tap ms-auto inline-flex items-center text-sm text-muted transition-colors hover:text-foreground"
+              className="tap ms-auto inline-flex items-center text-sm text-muted transition-colors hover:text-foreground"
             >
-              سائٹ پر دیکھیں ↗
+              View on site ↗
             </Link>
           ) : null}
         </div>

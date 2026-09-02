@@ -31,7 +31,7 @@ export function BookmarkButton({
   );
 
   const saved = bookmarks.some((b) => b.slug === entry.slug);
-  const label = saved ? "نشان زد فہرست سے نکالیں" : "نشان زد کریں";
+  const label = saved ? "Remove from saved" : "Save this kalam";
 
   return (
     <button

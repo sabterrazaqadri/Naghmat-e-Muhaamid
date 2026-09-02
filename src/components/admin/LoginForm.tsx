@@ -18,9 +18,9 @@ export function LoginForm({ next }: { next?: string }) {
       <div>
         <label
           htmlFor={passwordId}
-          className="body-ur text-sm text-foreground"
+          className="text-sm text-foreground"
         >
-          پاس ورڈ
+          Password
         </label>
         <input
           id={passwordId}
@@ -42,7 +42,7 @@ export function LoginForm({ next }: { next?: string }) {
         <p
           id="login-error"
           role="alert"
-          className="body-ur flex items-start gap-2 text-sm leading-7 text-destructive"
+          className="flex items-start gap-2 text-sm leading-7 text-destructive"
         >
           <WarningCircle size={18} aria-hidden="true" className="mt-1 shrink-0" />
           {state.message}
@@ -53,7 +53,7 @@ export function LoginForm({ next }: { next?: string }) {
         className="w-full"
         icon={<SignIn size={16} aria-hidden="true" />}
       >
-        داخل ہوں
+        Sign in
       </SubmitButton>
     </form>
   );

@@ -30,35 +30,41 @@ export function LyricsField({
   return (
     <div>
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <label htmlFor={id} className="body-ur text-sm text-foreground">
-          کلام کا متن <span className="text-destructive">*</span>
+        <label htmlFor={id} className="text-sm text-foreground">
+          Kalam text <span className="text-destructive">*</span>
         </label>
         <p className="text-xs text-muted" aria-live="polite">
-          {value.length} حروف · {lines} مصرعے · {stanzas} بند
+          {value.length} characters · {lines} lines · {stanzas} stanzas
         </p>
       </div>
 
+      {/* dir="auto", not "rtl": the placeholder is English UI copy, and a hard
+          RTL throws its trailing punctuation to the front (".One misra per
+          line"). `auto` keeps the empty field LTR for the English hint and
+          flips to RTL the moment Urdu is typed — which is the behaviour an
+          Urdu typist expects anyway. */}
       <textarea
         id={id}
         name="lyrics"
-        dir="rtl"
+        lang="ur"
+        dir="auto"
         rows={18}
         value={value}
         onChange={(event) => setValue(event.target.value)}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId : undefined}
-        placeholder={"ہر مصرع نئی سطر میں لکھیں۔\n\nخالی سطر نیا بند شروع کرتی ہے۔"}
+        placeholder={"One misra per line\n\nA blank line starts a new stanza"}
         className={`body-ur mt-2 w-full resize-y rounded-xl border bg-elevated px-4 py-3 text-lg text-foreground outline-none transition-colors placeholder:text-muted focus:border-gold ${
           error ? "border-destructive" : "border-hairline"
         }`}
       />
 
       <p className="mt-1 text-xs text-muted">
-        خالی سطر چھوڑنے سے صفحے پر نیا بند بنتا ہے۔
+        A blank line renders as a stanza break on the site.
       </p>
 
       {error ? (
-        <p id={errorId} className="body-ur mt-1 text-sm text-destructive">
+        <p id={errorId} className="mt-1 text-sm text-destructive">
           {error}
         </p>
       ) : null}

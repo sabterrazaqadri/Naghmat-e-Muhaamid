@@ -13,7 +13,7 @@ export function DeleteButton({
   action,
   id,
   confirmMessage,
-  label = "حذف کریں",
+  label = "Delete",
   compact = false,
 }: {
   action: (formData: FormData) => Promise<void>;

@@ -37,14 +37,15 @@ export function CategoryForm({ action, mode, initial }: Props) {
 
         <Field
           id={nameId}
-          label="نام"
+          label="Name"
           required
           error={state.fieldErrors?.name}
-          hint="صفحے پر یہی نام دکھایا جائے گا، مثلاً: نعت"
+          hint="Shown on the site as the topic heading, e.g. نعت"
         >
           <input
             id={nameId}
             name="name"
+            lang="ur"
             dir="rtl"
             defaultValue={initial?.name}
             required
@@ -58,8 +59,8 @@ export function CategoryForm({ action, mode, initial }: Props) {
 
         <Field
           id={slugId}
-          label="ویب پتا (slug)"
-          hint="خالی چھوڑ دیں تو نام سے خود بن جائے گا۔ اردو حروف بھی چلتے ہیں۔"
+          label="URL slug"
+          hint="Leave blank to generate it from the name. Urdu characters are fine."
         >
           <input
             id={slugId}
@@ -73,8 +74,8 @@ export function CategoryForm({ action, mode, initial }: Props) {
 
         <Field
           id={sortId}
-          label="ترتیب"
-          hint="چھوٹا نمبر پہلے دکھایا جاتا ہے۔"
+          label="Sort order"
+          hint="Lower numbers appear first."
         >
           <input
             id={sortId}
@@ -95,7 +96,7 @@ export function CategoryForm({ action, mode, initial }: Props) {
             )
           }
         >
-          {mode === "create" ? "موضوع بنائیں" : "محفوظ کریں"}
+          {mode === "create" ? "Create topic" : "Save changes"}
         </SubmitButton>
       </form>
 

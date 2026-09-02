@@ -85,26 +85,24 @@ export function InstallPrompt() {
       </span>
 
       <div className="min-w-0 flex-1">
-        <p id="install-title" className="body-ur text-sm text-foreground">
-          ایپ کے طور پر شامل کریں
+        <p id="install-title" className="text-sm text-foreground">
+          Install this app
         </p>
-        <p className="body-ur text-xs leading-6 text-muted">
-          بغیر انٹرنیٹ بھی پڑھیں
-        </p>
+        <p className="text-xs leading-6 text-muted">Read even when offline</p>
       </div>
 
       <button
         type="button"
         onClick={install}
-        className="body-ur tap shrink-0 rounded-full bg-gold px-4 text-sm font-medium text-gold-contrast transition-opacity hover:opacity-90"
+        className="tap shrink-0 rounded-full bg-gold px-4 text-sm font-medium text-gold-contrast transition-opacity hover:opacity-90"
       >
-        شامل کریں
+        Install
       </button>
 
       <button
         type="button"
         onClick={dismiss}
-        aria-label="بند کریں"
+        aria-label="Dismiss"
         className="shrink-0 rounded-lg p-1 text-muted transition-colors hover:text-foreground"
       >
         <X size={16} aria-hidden="true" />

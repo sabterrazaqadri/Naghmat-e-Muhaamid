@@ -36,7 +36,7 @@ export function SubmitButton({
       type="submit"
       disabled={pending}
       aria-busy={pending}
-      className={`body-ur tap inline-flex items-center justify-center gap-2 rounded-xl px-4 text-sm font-medium transition-all disabled:cursor-not-allowed ${tones[tone]} ${className}`}
+      className={`tap inline-flex items-center justify-center gap-2 rounded-xl px-4 text-sm font-medium transition-all disabled:cursor-not-allowed ${tones[tone]} ${className}`}
     >
       {pending ? (
         <CircleNotch size={16} aria-hidden="true" className="animate-spin" />

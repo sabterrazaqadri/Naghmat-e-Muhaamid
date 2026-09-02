@@ -3,10 +3,9 @@ export const site = {
   nameUr: "نغماتِ محامد",
   /** Romanised wordmark, used in <title> and the footer. */
   nameLatin: "Naghmat e Muhaamid",
-  taglineUr: "حمد و نعت و منقبت کا ایک منتخب دیوان",
-  descriptionUr:
-    "حمد، نعت، منقبت، سلام، مناجات اور متفرقات — محمد سبطر رضا قادری اختری کے کلام کا مجموعہ۔",
-  descriptionLatin:
+  /** English tagline — the interface language. */
+  tagline: "A collected diwan of devotional verse",
+  description:
     "The collected devotional verse of Muhammad Sibtar Raza Qadri Akhtari — Hamd, Naat, Manqabat, Salaam, Munajaat and more.",
   /**
    * The collection has exactly one poet, so attribution lives here — once —
@@ -15,12 +14,14 @@ export const site = {
    * anthology, which it is not.
    */
   poet: {
+    /** The poet's name and honorifics stay in Urdu — they are his name, not
+        interface copy, and transliterating them would flatten the titles. */
     titlesUr: "ثنا خوانِ رسول، گدائے اہلِ بیت، قادری فقیر",
     nameUr: "محمد سبطر رضا قادری اختری",
     nameLatin: "Muhammad Sibtar Raza Qadri Akhtari",
   },
-  /** Formal one-line credit, used under each kalam and in shared text. */
-  creditUr: "کلام: محمد سبطر رضا قادری اختری",
+  /** Appended to copied/shared text so a kalam never travels unattributed. */
+  credit: "Kalam: Muhammad Sibtar Raza Qadri Akhtari",
 } as const;
 
 /**

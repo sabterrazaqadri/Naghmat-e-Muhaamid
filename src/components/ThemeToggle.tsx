@@ -23,8 +23,7 @@ export function ThemeToggle() {
     getServerTheme,
   );
 
-  const label =
-    theme === "light" ? "تاریک انداز اختیار کریں" : "روشن انداز اختیار کریں";
+  const label = theme === "light" ? "Switch to dark mode" : "Switch to light mode";
 
   return (
     <button

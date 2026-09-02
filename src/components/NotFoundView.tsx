@@ -18,27 +18,27 @@ export function NotFoundView() {
 
       <p className="mt-6 font-display text-5xl text-gold">404</p>
 
-      <h1 className="heading-ur mt-2 text-3xl text-foreground">
-        یہ صفحہ نہیں ملا
+      <h1 className="font-display mt-2 text-3xl text-foreground">
+        This page could not be found
       </h1>
 
-      <p className="body-ur mt-3 max-w-md text-[0.95rem] text-muted">
-        ممکن ہے یہ کلام یا موضوع ہٹا دیا گیا ہو، یا پتا درست نہ ہو۔ سرورق سے
-        دوبارہ شروع کریں، یا ⌘K دبا کر پورے مجموعے میں تلاش کریں۔
+      <p className="mt-3 max-w-md text-[0.95rem] leading-7 text-muted">
+        The kalam or topic may have been removed, or the address may be wrong.
+        Start again from the home page, or press ⌘K to search the collection.
       </p>
 
       <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
         <Link
           href="/"
-          className="body-ur tap inline-flex items-center rounded-xl bg-gold px-5 text-sm font-medium text-gold-contrast transition-opacity hover:opacity-90"
+          className="tap inline-flex items-center rounded-full bg-gold px-5 text-sm font-medium text-gold-contrast transition-opacity hover:opacity-90"
         >
-          سرورق پر جائیں
+          Go to home
         </Link>
         <Link
           href="/bookmarks"
-          className="body-ur tap inline-flex items-center rounded-xl border border-hairline px-5 text-sm text-foreground transition-colors hover:border-hairline-strong"
+          className="tap inline-flex items-center rounded-full border border-hairline px-5 text-sm text-foreground transition-colors hover:border-hairline-strong"
         >
-          نشان زد کلام
+          Saved kalam
         </Link>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { ArrowLeft } from "@phosphor-icons/react/ssr";
+import { ArrowRight } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 
 import { Khatim } from "@/components/Ornament";
@@ -61,9 +61,11 @@ export function CategoryCard({
       <div className="flex flex-1 items-center gap-4 px-5 pb-5 pt-4">
         <div className="min-w-0 flex-1">
           {/* No `truncate`: overflow-hidden crops nastaliq's descenders. */}
-          <h3 className="heading-ur text-2xl text-foreground">{name}</h3>
-          <p className="body-ur text-xs tracking-wide text-muted">
-            {kalamCount} کلام
+          <h3 lang="ur" dir="rtl" className="heading-ur text-2xl text-foreground">
+            {name}
+          </h3>
+          <p className="text-xs uppercase tracking-[0.14em] text-muted">
+            {kalamCount} {kalamCount === 1 ? "kalam" : "kalam"}
           </p>
         </div>
 
@@ -75,8 +77,7 @@ export function CategoryCard({
           aria-hidden="true"
           className="grid size-9 shrink-0 place-items-center rounded-full border border-hairline text-muted transition-all duration-300 ease-[var(--ease-out-soft)] group-hover:border-gold group-hover:bg-[color-mix(in_oklab,var(--accent-gold)_14%,transparent)] group-hover:text-gold"
         >
-          {/* RTL: the arrow points the way reading travels. */}
-          <ArrowLeft size={16} />
+          <ArrowRight size={16} />
         </span>
       </div>
     </Link>

@@ -23,16 +23,8 @@ export function EmptyState({
       >
         {icon}
       </span>
-      <h2 lang="ur" dir="rtl" className="heading-ur text-xl text-foreground">
-        {title}
-      </h2>
-      <p
-        lang="ur"
-        dir="rtl"
-        className="body-ur max-w-sm text-[0.95rem] text-muted"
-      >
-        {body}
-      </p>
+      <h2 className="font-display text-2xl text-foreground">{title}</h2>
+      <p className="max-w-sm text-[0.95rem] leading-7 text-muted">{body}</p>
       {action ? <div className="mt-2">{action}</div> : null}
     </div>
   );

@@ -20,7 +20,11 @@ export function KalamCard({
   return (
     <article className="glass lift group relative flex gap-3 p-5">
       <div className="min-w-0 flex-1">
-        <h3 className="heading-ur text-xl text-foreground transition-colors duration-300 group-hover:text-gold">
+        <h3
+          lang="ur"
+          dir="rtl"
+          className="heading-ur text-xl text-foreground transition-colors duration-300 group-hover:text-gold"
+        >
           {/* Stretched link: the whole card is clickable, but only the title
               text lands in the accessibility tree as the link name. */}
           <Link href={`/kalam/${encodeURIComponent(slug)}`} className="after:absolute after:inset-0">
@@ -29,14 +33,22 @@ export function KalamCard({
         </h3>
 
         {excerpt ? (
-          <p className="body-ur mt-1 line-clamp-2 text-sm leading-8 text-muted">
+          <p
+            lang="ur"
+            dir="rtl"
+            className="body-ur mt-1 line-clamp-2 text-sm leading-8 text-muted"
+          >
             {excerpt}
           </p>
         ) : null}
 
         {showCategory ? (
-          <p className="body-ur mt-2 text-xs leading-6 text-muted">
-            <span className="rounded-full border border-hairline px-2 py-0.5">
+          <p className="mt-2 text-xs leading-6 text-muted">
+            <span
+              lang="ur"
+              dir="rtl"
+              className="inline-block rounded-full border border-hairline px-2 py-0.5"
+            >
               {categoryName}
             </span>
           </p>

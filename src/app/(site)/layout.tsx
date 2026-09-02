@@ -14,9 +14,9 @@ export default function SiteLayout({
     <CommandPaletteProvider>
       <a
         href="#main"
-        className="body-ur sr-only focus:not-sr-only focus:fixed focus:top-3 focus:start-3 focus:z-50 focus:rounded-xl focus:bg-gold focus:px-4 focus:py-2 focus:text-gold-contrast focus:shadow-lg"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:start-3 focus:z-50 focus:rounded-xl focus:bg-gold focus:px-4 focus:py-2 focus:text-gold-contrast focus:shadow-lg"
       >
-        مواد پر جائیں
+        Skip to content
       </a>
 
       {/* `grain` on the shell, not on body: it needs a positioned ancestor to

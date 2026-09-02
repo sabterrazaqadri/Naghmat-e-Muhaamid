@@ -29,18 +29,18 @@ export default function ErrorBoundary({
         <WarningOctagon size={30} />
       </span>
 
-      <h1 className="heading-ur mt-6 text-3xl text-foreground">
-        کچھ غلط ہو گیا
+      <h1 className="font-display mt-6 text-3xl text-foreground">
+        Something went wrong
       </h1>
 
-      <p className="body-ur mt-3 max-w-md text-[0.95rem] text-muted">
-        یہ صفحہ لوڈ کرتے ہوئے مسئلہ پیش آیا۔ دوبارہ کوشش کریں — مسئلہ برقرار
-        رہے تو کچھ دیر بعد آزمائیں۔
+      <p className="mt-3 max-w-md text-[0.95rem] leading-7 text-muted">
+        This page ran into a problem while loading. Try again — if it keeps
+        happening, give it a moment and retry.
       </p>
 
       {error.digest ? (
         <p className="mt-3 font-mono text-xs text-muted">
-          حوالہ: {error.digest}
+          Reference: {error.digest}
         </p>
       ) : null}
 
@@ -48,15 +48,15 @@ export default function ErrorBoundary({
         <button
           type="button"
           onClick={reset}
-          className="body-ur tap inline-flex items-center rounded-xl bg-gold px-5 text-sm font-medium text-gold-contrast transition-opacity hover:opacity-90"
+          className="tap inline-flex items-center rounded-full bg-gold px-5 text-sm font-medium text-gold-contrast transition-opacity hover:opacity-90"
         >
-          دوبارہ کوشش کریں
+          Try again
         </button>
         <Link
           href="/"
-          className="body-ur tap inline-flex items-center rounded-xl border border-hairline px-5 text-sm text-foreground transition-colors hover:border-hairline-strong"
+          className="tap inline-flex items-center rounded-full border border-hairline px-5 text-sm text-foreground transition-colors hover:border-hairline-strong"
         >
-          سرورق پر جائیں
+          Go to home
         </Link>
       </div>
     </div>

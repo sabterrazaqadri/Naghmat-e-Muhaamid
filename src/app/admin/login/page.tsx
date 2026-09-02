@@ -5,7 +5,7 @@ import Link from "next/link";
 import { LoginForm } from "@/components/admin/LoginForm";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = { title: "داخلہ" };
+export const metadata: Metadata = { title: "Sign in" };
 
 /**
  * Sits outside the (protected) group, so the layout's auth check never runs
@@ -30,11 +30,11 @@ export default async function LoginPage({
           <Lock size={24} />
         </span>
 
-        <h1 className="heading-ur mt-5 text-2xl text-foreground">
-          انتظامیہ میں داخلہ
+        <h1 className="font-display mt-5 text-3xl text-foreground">
+          Admin sign in
         </h1>
-        <p className="body-ur mt-1 text-sm leading-7 text-muted">
-          {site.nameUr} کا مجموعہ ترتیب دینے کے لیے پاس ورڈ درکار ہے۔
+        <p className="mt-1 text-sm leading-7 text-muted">
+          A password is required to manage the {site.nameLatin} collection.
         </p>
 
         <div className="mt-6">
@@ -45,9 +45,9 @@ export default async function LoginPage({
 
       <Link
         href="/"
-        className="body-ur mt-6 text-center text-sm text-muted transition-colors hover:text-foreground"
+        className="mt-6 text-center text-sm text-muted transition-colors hover:text-foreground"
       >
-        سائٹ پر واپس جائیں
+        Back to the site
       </Link>
     </div>
   );

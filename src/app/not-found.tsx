@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { NotFoundView } from "@/components/NotFoundView";
 
 export const metadata: Metadata = {
-  title: "صفحہ نہیں ملا",
+  title: "Page not found",
   robots: { index: false, follow: false },
 };
 

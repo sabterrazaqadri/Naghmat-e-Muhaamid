@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "آف لائن",
+  title: "Offline",
   robots: { index: false, follow: false },
 };
 
@@ -23,20 +23,20 @@ export default function OfflinePage() {
         <CloudSlash size={30} />
       </span>
 
-      <h1 className="heading-ur mt-6 text-3xl text-foreground">
-        اس وقت آف لائن ہیں
+      <h1 className="font-display mt-6 text-3xl text-foreground">
+        You are offline
       </h1>
 
-      <p className="body-ur mt-3 max-w-md text-[0.95rem] text-muted">
-        انٹرنیٹ سے رابطہ نہیں ہو سکا۔ جو کلام آپ پہلے پڑھ چکے ہیں وہ اب بھی
-        کھل جائیں گے — باقی کے لیے رابطہ بحال ہونے کا انتظار کریں۔
+      <p className="mt-3 max-w-md text-[0.95rem] leading-7 text-muted">
+        No internet connection. Any kalam you have already opened will still
+        load — the rest will return once you are back online.
       </p>
 
       <Link
         href="/"
-        className="body-ur tap mt-8 inline-flex items-center rounded-full bg-gold px-5 text-sm font-medium text-gold-contrast transition-opacity hover:opacity-90"
+        className="tap mt-8 inline-flex items-center rounded-full bg-gold px-5 text-sm font-medium text-gold-contrast transition-opacity hover:opacity-90"
       >
-        دوبارہ کوشش کریں
+        Try again
       </Link>
     </div>
   );

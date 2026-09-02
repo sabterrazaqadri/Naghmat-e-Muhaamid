@@ -163,7 +163,12 @@ body {
    is far taller than the font size suggests, and the kerns of ے / ی / ن hang
    well below the baseline. Tailwind's default leading crops both ends. This
    floor is enforced globally rather than per-component so a new heading
-   cannot reintroduce the bug. */
+   cannot reintroduce the bug.
+
+   Matches the element itself as well as its descendants: with an English UI
+   the Urdu markers sit directly on the heading, not on an ancestor, so a
+   descendant-only selector would silently stop applying. */
+:is(h1, h2, h3, h4, h5, h6):is([lang="ur"], [dir="rtl"]),
 :is([lang="ur"], [dir="rtl"]) :is(h1, h2, h3, h4, h5, h6) {
   line-height: 2;
   padding-block: 0.22em;

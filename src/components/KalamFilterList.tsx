@@ -53,7 +53,7 @@ export function KalamFilterList({
       <div className="glass flex items-center gap-3 px-4">
         <MagnifyingGlass size={20} aria-hidden="true" className="shrink-0 text-muted" />
         <label htmlFor={inputId} className="sr-only">
-          {categoryName} میں تلاش کریں
+          Search within this topic
         </label>
         <input
           id={inputId}
@@ -61,16 +61,16 @@ export function KalamFilterList({
           dir="auto"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="اس موضوع میں تلاش کریں…"
-          className="body-ur h-12 w-full bg-transparent text-base text-foreground outline-none placeholder:text-muted"
+          placeholder="Search within this topic…"
+          className="h-12 w-full bg-transparent text-base text-foreground outline-none placeholder:text-muted"
         />
       </div>
 
       {/* Announced politely so screen-reader users hear the list shrink. */}
-      <p aria-live="polite" className="body-ur mt-3 text-sm leading-7 text-muted">
+      <p aria-live="polite" className="mt-3 text-sm leading-7 text-muted">
         {query
-          ? `${filtered.length} نتائج`
-          : `${items.length} کلام`}
+          ? `${filtered.length} ${filtered.length === 1 ? "result" : "results"}`
+          : `${items.length} kalam`}
       </p>
 
       {filtered.length === 0 ? (
@@ -81,10 +81,12 @@ export function KalamFilterList({
           >
             <SmileySad size={26} />
           </span>
-          <h2 className="heading-ur text-xl text-foreground">کوئی کلام نہیں ملا</h2>
-          <p className="body-ur max-w-sm text-[0.95rem] text-muted">
-            «{query}» سے کچھ نہیں ملا۔ املا بدل کر دیکھیں، یا ⌘K دبا کر پورے
-            مجموعے میں تلاش کریں۔
+          <h2 className="font-display text-2xl text-foreground">
+            No kalam found
+          </h2>
+          <p className="max-w-sm text-[0.95rem] leading-7 text-muted">
+            Nothing matched “{query}”. Try a different spelling, or press ⌘K to
+            search the whole collection.
           </p>
         </div>
       ) : (

@@ -92,11 +92,11 @@ export function KalamReader({
   async function onCopy() {
     // Shared text carries the collection's attribution, so a copied kalam
     // never travels without the poet's name attached to it.
-    const payload = `${title}\n\n${lyrics}\n\n${site.creditUr}\n${shareUrl}`;
+    const payload = `${title}\n\n${lyrics}\n\n${site.credit}\n${shareUrl}`;
     setNotice(
       (await writeToClipboard(payload))
-        ? "کلام کاپی ہو گیا"
-        : "کاپی نہ ہو سکا — متن منتخب کر کے کاپی کریں",
+        ? "Kalam copied"
+        : "Could not copy — select the text and copy manually",
     );
   }
 
@@ -114,8 +114,8 @@ export function KalamReader({
 
     setNotice(
       (await writeToClipboard(shareUrl))
-        ? "لنک کاپی ہو گیا"
-        : "لنک کاپی نہ ہو سکا",
+        ? "Link copied"
+        : "Could not copy the link",
     );
   }
 
@@ -128,14 +128,14 @@ export function KalamReader({
         <div
           className="flex items-center gap-1"
           role="group"
-          aria-label="متن کا حجم"
+          aria-label="Text size"
         >
           <TextAa size={20} aria-hidden="true" className="mx-1 text-muted" />
           <button
             type="button"
             onClick={() => setLyricsSize(size - SIZE_STEP)}
             disabled={atMin}
-            aria-label="متن چھوٹا کریں"
+            aria-label="Decrease text size"
             className="tap grid place-items-center rounded-lg border border-hairline text-muted transition-colors hover:border-hairline-strong hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
           >
             <Minus size={16} aria-hidden="true" />
@@ -148,7 +148,7 @@ export function KalamReader({
             type="button"
             onClick={() => setLyricsSize(size + SIZE_STEP)}
             disabled={atMax}
-            aria-label="متن بڑا کریں"
+            aria-label="Increase text size"
             className="tap grid place-items-center rounded-lg border border-hairline text-muted transition-colors hover:border-hairline-strong hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
           >
             <Plus size={16} aria-hidden="true" />
@@ -164,19 +164,19 @@ export function KalamReader({
           <button
             type="button"
             onClick={onCopy}
-            className="body-ur tap flex items-center gap-2 rounded-xl border border-hairline px-3 text-sm text-muted transition-colors hover:border-hairline-strong hover:text-foreground"
+            className="tap flex items-center gap-2 rounded-xl border border-hairline px-3 text-sm text-muted transition-colors hover:border-hairline-strong hover:text-foreground"
           >
             <Copy size={18} aria-hidden="true" />
-            <span className="hidden sm:inline">کاپی</span>
+            <span className="hidden sm:inline">Copy</span>
           </button>
 
           <button
             type="button"
             onClick={onShare}
-            className="body-ur tap flex items-center gap-2 rounded-xl border border-hairline px-3 text-sm text-muted transition-colors hover:border-hairline-strong hover:text-foreground"
+            className="tap flex items-center gap-2 rounded-xl border border-hairline px-3 text-sm text-muted transition-colors hover:border-hairline-strong hover:text-foreground"
           >
             <ShareNetwork size={18} aria-hidden="true" />
-            <span className="hidden sm:inline">شیئر</span>
+            <span className="hidden sm:inline">Share</span>
           </button>
         </div>
       </div>
@@ -184,7 +184,7 @@ export function KalamReader({
       {/* Assertive: the reader pressed a button and is owed confirmation. */}
       <p role="status" aria-live="polite" className="min-h-6">
         {notice ? (
-          <span className="body-ur mt-2 inline-flex items-center gap-1.5 text-sm text-gold">
+          <span className="mt-2 inline-flex items-center gap-1.5 text-sm text-gold">
             <Check size={16} aria-hidden="true" />
             {notice}
           </span>
@@ -192,6 +192,8 @@ export function KalamReader({
       </p>
 
       <article
+        lang="ur"
+        dir="rtl"
         className="glass mt-2 px-5 py-8 sm:px-10 sm:py-12"
         style={{ fontSize: `${size}px` }}
       >

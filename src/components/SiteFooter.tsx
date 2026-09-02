@@ -12,31 +12,32 @@ export function SiteFooter() {
             <p className="font-display text-2xl tracking-wide text-gold">
               {site.nameLatin}
             </p>
+            <p className="mt-3 text-sm leading-7 text-muted">{site.tagline}</p>
+          </div>
+
+          <div className="text-sm">
+            <p className="text-xs uppercase tracking-[0.18em] text-muted">
+              Poet
+            </p>
             <p
               lang="ur"
               dir="rtl"
-              className="body-ur mt-3 text-sm leading-8 text-muted"
+              className="heading-ur text-lg text-foreground"
             >
-              {site.taglineUr}
-            </p>
-          </div>
-
-          <div lang="ur" dir="rtl" className="text-sm">
-            <p className="heading-ur text-lg text-foreground">
               {site.poet.nameUr}
             </p>
           </div>
         </div>
 
         <div className="mt-10 flex flex-col gap-3 border-t border-hairline pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
-          <p dir="rtl" className="body-ur leading-7">
-            © {new Date().getFullYear()} {site.nameUr}
+          <p className="leading-7">
+            © {new Date().getFullYear()} {site.nameLatin}
           </p>
           <Link
             href="/admin"
-            className="body-ur leading-7 transition-colors hover:text-foreground"
+            className="leading-7 transition-colors hover:text-foreground"
           >
-            انتظامیہ
+            Admin
           </Link>
         </div>
       </div>

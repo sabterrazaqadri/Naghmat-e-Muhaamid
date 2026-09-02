@@ -19,7 +19,7 @@ export function CategoryNav({
 
   return (
     <nav
-      aria-label="موضوعات"
+      aria-label="Topics"
       className="scrollbar-none -mx-1 flex gap-1.5 overflow-x-auto px-1 pb-1"
     >
       {categories.map((category) => {
@@ -31,7 +31,9 @@ export function CategoryNav({
             key={category.slug}
             href={href}
             aria-current={isActive ? "page" : undefined}
-            className={`body-ur shrink-0 rounded-full border px-3.5 py-1.5 text-sm leading-7 transition-colors ${
+            lang="ur"
+            dir="rtl"
+            className={`heading-ur shrink-0 rounded-full border px-3.5 py-1.5 text-sm transition-colors ${
               isActive
                 ? "border-gold bg-[color-mix(in_oklab,var(--accent-gold)_16%,transparent)] text-gold"
                 : "border-hairline text-muted hover:border-hairline-strong hover:text-foreground"

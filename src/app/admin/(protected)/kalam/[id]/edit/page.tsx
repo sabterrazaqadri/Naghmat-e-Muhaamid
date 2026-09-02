@@ -7,7 +7,7 @@ import { DeleteButton } from "@/components/admin/DeleteButton";
 import { KalamForm } from "@/components/admin/KalamForm";
 import { adminCategoryOptions, adminGetKalam } from "@/db/admin-queries";
 
-export const metadata: Metadata = { title: "کلام میں ترمیم" };
+export const metadata: Metadata = { title: "Edit kalam" };
 export const dynamic = "force-dynamic";
 
 export default async function EditKalamPage({
@@ -28,13 +28,16 @@ export default async function EditKalamPage({
     <div className="max-w-3xl">
       <Link
         href="/admin/kalam"
-        className="body-ur text-sm text-muted transition-colors hover:text-foreground"
+        className="text-sm text-muted transition-colors hover:text-foreground"
       >
-        تمام کلام
+        All kalam
       </Link>
 
-      <h1 className="heading-ur mt-1 text-2xl text-foreground">
-        «{kalam.title}» میں ترمیم
+      <h1 className="font-display mt-1 text-3xl text-foreground">
+        Edit{" "}
+        <span lang="ur" dir="rtl" className="heading-ur">
+          {kalam.title}
+        </span>
       </h1>
 
       <div className="mt-6">
@@ -54,15 +57,15 @@ export default async function EditKalamPage({
       </div>
 
       <div className="mt-10 border-t border-hairline pt-6">
-        <h2 className="heading-ur text-base text-destructive">خطرناک عمل</h2>
-        <p className="body-ur mb-3 mt-1 text-xs leading-6 text-muted">
-          حذف کیا گیا کلام واپس نہیں آ سکتا۔
+        <h2 className="font-display text-lg text-destructive">Danger zone</h2>
+        <p className="mb-3 mt-1 text-xs leading-6 text-muted">
+          A deleted kalam cannot be recovered.
         </p>
         <DeleteButton
           action={deleteKalamAction}
           id={kalam.id}
-          confirmMessage={`«${kalam.title}» ہمیشہ کے لیے حذف کر دیا جائے؟`}
-          label="یہ کلام حذف کریں"
+          confirmMessage={`Permanently delete "${kalam.title}"?`}
+          label="Delete this kalam"
         />
       </div>
     </div>
