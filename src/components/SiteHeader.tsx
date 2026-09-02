@@ -1,4 +1,5 @@
 import { Star } from "@phosphor-icons/react/ssr";
+import Image from "next/image";
 import Link from "next/link";
 
 import { CategoryNav } from "@/components/CategoryNav";
@@ -24,12 +25,21 @@ export async function SiteHeader() {
             className="me-auto flex min-w-0 items-center gap-2.5"
             aria-label={`${site.nameLatin} — home`}
           >
-            <span
+            {/* The real emblem, not a letter in a box. The brightened
+                favicon render is used rather than icon-192: at 36px the
+                full-fidelity art sinks into a dark smudge, exactly as it does
+                in a browser tab. Intrinsic size is declared so the box is
+                reserved before decode and the header cannot shift; `priority`
+                because it is above the fold on every page. */}
+            <Image
+              src="/icons/favicon-64.png"
+              alt=""
               aria-hidden="true"
-              className="grid size-9 shrink-0 place-items-center rounded-xl border border-hairline bg-[color-mix(in_oklab,var(--accent-gold)_16%,transparent)] font-display text-lg text-gold"
-            >
-              ن
-            </span>
+              width={64}
+              height={64}
+              priority
+              className="size-9 shrink-0 rounded-xl border border-hairline"
+            />
             {/* No `truncate` — overflow-hidden would crop the nastaliq
                 descenders. The name is short, and the parent's min-w-0 already
                 stops it from pushing the header actions off screen. */}

@@ -1,73 +1,108 @@
 /**
- * Generates the PWA icon set from a single inline SVG source.
+ * Generates the PWA / favicon set from the master logo in docs/.
  *
- * Kept as a script rather than committed binaries so the mark can be changed
- * in one place and re-rendered; run `npm run icons` after editing SOURCE.
+ * Run after replacing the source art:
+ *   npm run icons
  *
- * Two variants are produced, because Android treats them differently:
- *  - "any": the mark fills the canvas, used wherever the icon is shown as-is.
- *  - "maskable": the launcher may crop this to a circle/squircle, so the mark
- *    is inset to the safe zone (the middle 80%) and the background bleeds to
- *    every edge. Shipping only an "any" icon is what makes Android render a
- *    white circle with a shrunken logo inside it.
+ * Two things this handles that a plain resize does not:
+ *
+ * 1. MASKABLE VARIANTS. Android crops launcher icons to its own shape (circle,
+ *    squircle, rounded square). The khatim's eight points reach the edge of the
+ *    artwork, so an un-inset icon loses them. Maskable versions scale the art
+ *    into the middle ~76% — the documented safe zone — over an opaque field
+ *    that bleeds to all four edges.
+ *
+ * 2. BRIGHTENED SMALL SIZES. The lattice is hairline-thin over a near-black
+ *    field, so at favicon scale the mark sinks into a dark smudge — worst on a
+ *    light tab bar. The 32/48/64 renders lift the gold; the large icons keep
+ *    the original values, where the fine detail survives on its own.
  */
 import { mkdir, writeFile } from "node:fs/promises";
+import toIco from "png-to-ico";
 import sharp from "sharp";
 
-const GOLD = "#D4AF37";
-const DEEP = "#0A0A0C";
-
-/** `scale` shrinks the artwork inside the canvas for maskable safe-area. */
-const SOURCE = (scale) => `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <defs>
-    <radialGradient id="bg" cx="50%" cy="38%" r="72%">
-      <stop offset="0%" stop-color="#14140f"/>
-      <stop offset="100%" stop-color="${DEEP}"/>
-    </radialGradient>
-    <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#F0D98A"/>
-      <stop offset="45%" stop-color="${GOLD}"/>
-      <stop offset="100%" stop-color="#A8801F"/>
-    </linearGradient>
-  </defs>
-
-  <rect width="512" height="512" fill="url(#bg)"/>
-
-  <g transform="translate(256 256) scale(${scale}) translate(-256 -256)">
-    <!-- Khatim: two squares, one rotated 45°, the site's recurring motif. -->
-    <g stroke="url(#leaf)" fill="none" stroke-width="9" opacity="0.5">
-      <rect x="126" y="126" width="260" height="260" rx="8"/>
-      <rect x="126" y="126" width="260" height="260" rx="8"
-            transform="rotate(45 256 256)"/>
-    </g>
-    <!-- ن — the initial of نغماتِ محامد. Drawn as a path so the render does
-         not depend on a font being installed on the build machine. -->
-    <path d="M150 208 C150 300, 200 350, 256 350 C312 350, 362 300, 362 208"
-          stroke="url(#leaf)" stroke-width="30" fill="none" stroke-linecap="round"/>
-    <circle cx="256" cy="150" r="19" fill="url(#leaf)"/>
-  </g>
-</svg>`;
-
+const SOURCE = "docs/Nagmat Logo.png";
 const OUT = "public/icons";
+
+/** Matches --bg-deep, so the icon sits flush with the app's own background. */
+const BG = { r: 5, g: 5, b: 6, alpha: 1 };
+
 await mkdir(OUT, { recursive: true });
 
-const jobs = [
-  { file: "icon-192.png", size: 192, scale: 1 },
-  { file: "icon-512.png", size: 512, scale: 1 },
-  { file: "icon-maskable-192.png", size: 192, scale: 0.8 },
-  { file: "icon-maskable-512.png", size: 512, scale: 0.8 },
-  { file: "apple-touch-icon.png", size: 180, scale: 1 },
-];
+/** The art carries ~56px of dead margin per side; drop it and re-pad to taste. */
+const trimmed = await sharp(SOURCE).trim({ threshold: 12 }).toBuffer();
 
-for (const { file, size, scale } of jobs) {
-  await sharp(Buffer.from(SOURCE(scale)))
-    .resize(size, size)
-    .png({ compressionLevel: 9 })
-    .toFile(`${OUT}/${file}`);
-  console.log(`✓ ${OUT}/${file}  ${size}×${size}`);
+/**
+ * @param size    output square, px
+ * @param inset   fraction of the canvas the artwork occupies (1 = edge to edge)
+ * @param lift    brighten the gold — see the favicon note below
+ */
+async function render(file, size, inset, lift = false) {
+  const art = Math.round(size * inset);
+  const pad = Math.round((size - art) / 2);
+
+  let pipeline = sharp(trimmed)
+    .resize(art, art, { fit: "contain", background: BG })
+    .extend({ top: pad, bottom: pad, left: pad, right: pad, background: BG })
+    .resize(size, size);
+
+  if (lift) pipeline = pipeline.modulate({ brightness: 1.5, saturation: 1.25 });
+
+  await pipeline.png({ compressionLevel: 9 }).toFile(`${OUT}/${file}`);
+
+  console.log(
+    `✓ ${OUT}/${file}  ${size}×${size}  (art ${Math.round(inset * 100)}%${lift ? ", brightened" : ""})`,
+  );
 }
 
-// Favicon source, kept as SVG so it stays crisp at any size.
-await writeFile("public/icons/icon.svg", SOURCE(1).trim());
-console.log("✓ public/icons/icon.svg");
+// Full lockup. A little breathing room so the star points are not flush.
+await render("icon-512.png", 512, 0.92);
+await render("icon-192.png", 192, 0.92);
+await render("apple-touch-icon.png", 180, 0.92);
+
+// Maskable: inset hard, because the launcher will crop this.
+await render("icon-maskable-512.png", 512, 0.76);
+await render("icon-maskable-192.png", 192, 0.76);
+
+/**
+ * Favicon: the whole lockup, tightened.
+ *
+ * The first attempt cropped to the middle of the frame on the theory that the
+ * ornament would survive small sizes better than the wordmark. It does not
+ * work here — the centre of this logo *is* the wordmark, so cropping sliced
+ * the calligraphy mid-word and read as damaged rather than simplified.
+ *
+ * Scaled whole, the mark resolves at 32px as a gold eight-point star with
+ * script inside it. The text is not readable at that size and does not need to
+ * be: a favicon's job is to be recognisable in a strip of tabs.
+ *
+ * The gold is brightened for these sizes only. The lattice is hairline-thin
+ * over a near-black field, and at 32px on a light tab bar the whole thing
+ * otherwise sinks into a dark smudge. The large icons keep the original
+ * values, where the fine detail survives on its own.
+ */
+for (const size of [32, 48, 64]) {
+  await render(`favicon-${size}.png`, size, 0.96, true);
+}
+
+/**
+ * favicon.ico last.
+ *
+ * `src/app/favicon.ico` is a Next.js *file convention*: when the file exists it
+ * wins over anything declared in `metadata.icons`. So it has to be the real
+ * mark, not the leftover create-next-app default — otherwise the browser tab
+ * keeps showing the Next.js logo however the metadata is configured.
+ *
+ * Multi-resolution, so browsers and the Windows taskbar each take their size.
+ */
+await writeFile(
+  "src/app/favicon.ico",
+  await toIco([
+    `${OUT}/favicon-32.png`,
+    `${OUT}/favicon-48.png`,
+    `${OUT}/favicon-64.png`,
+  ]),
+);
+console.log("✓ src/app/favicon.ico  (32/48/64 multi-resolution)");
+
+console.log("\nDone. Icons written to public/icons/");

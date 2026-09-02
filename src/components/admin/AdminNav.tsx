@@ -1,6 +1,7 @@
 "use client";
 
 import { BookOpenText, FolderSimple, House, SignOut } from "@phosphor-icons/react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -19,12 +20,14 @@ export function AdminNav() {
     <header className="sticky top-0 z-40 border-b border-hairline bg-[color-mix(in_oklab,var(--bg-deep)_78%,transparent)] backdrop-blur-xl">
       <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 sm:px-6">
         <Link href="/admin" className="flex items-center gap-2">
-          <span
+          <Image
+            src="/icons/favicon-64.png"
+            alt=""
             aria-hidden="true"
-            className="grid size-8 place-items-center rounded-lg border border-hairline bg-[color-mix(in_oklab,var(--accent-gold)_16%,transparent)] font-display text-gold"
-          >
-            ن
-          </span>
+            width={64}
+            height={64}
+            className="size-8 rounded-lg border border-hairline"
+          />
           <span className="font-display text-lg text-foreground">Admin</span>
         </Link>
 
